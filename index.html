@@ -1,0 +1,141 @@
+<!--
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Amigo Secreto</title>
+</head>
+
+<body>
+    <main class="main-content">
+        <header class="header-banner">
+            <h1 class="main-title">Amigo Secreto</h1>
+            <img src="assets/amigo-secreto.png" alt="Imagen representativa de amigo secreto">
+        </header>
+        
+        <section class="input-section">
+            <h2 class="section-title">Digite el nombre de sus amigos</h2>
+            <div class="input-wrapper">
+                <input type="text" id="amigo" class="input-name" placeholder="Escribe un nombre">
+                <button class="button-add" onclick="agregarAmigo()">Añadir</button>
+            </div>
+           
+            <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
+            <ul id="resultado" class="result-list" aria-live="polite"></ul>
+
+            <div class="button-container">
+                <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear amigo secreto">
+                    <img src="assets/play_circle_outline.png" alt="Ícono para sortear">
+                    Sortear amigo
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js" defer></script>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Amigo Secreto</title>
+</head>
+
+<body>
+    <main class="main-content">
+        <header class="header-banner">
+            <h1 class="main-title">Amigo Secreto</h1>
+            <img src="assets/amigo-secreto.png" alt="Imagen representativa de amigo secreto">
+        </header>
+        
+        <section class="input-section">
+            <h2 class="section-title">Digite el nombre de sus amigos</h2>
+            <div class="input-wrapper">
+                <input type="text" id="amigo" class="input-name" placeholder="Escribe un nombre">
+                <button class="button-add" onclick="agregarAmigo()">Añadir</button>
+            </div>
+           
+            <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
+            <ul id="resultado" class="result-list" aria-live="polite"></ul>
+
+            <div class="button-container">
+                <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear amigo secreto">
+                    <img src="assets/play_circle_outline.png" alt="Ícono para sortear">
+                    Sortear amigo
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+// Variables para almacenar los nombres de amigos
+let amigos = [];
+
+// Función para agregar un nombre a la lista
+function agregarAmigo() {
+    const input = document.getElementById('amigo');
+    const nombre = input.value.trim(); // Eliminamos espacios innecesarios
+
+    if (nombre === "") {
+        // Si el campo está vacío, mostramos una alerta
+        alert("Por favor, ingresa un nombre válido.");
+        return;
+    }
+
+    // Añadimos el nombre a la lista de amigos
+    amigos.push(nombre);
+
+    // Limpiamos el campo de entrada
+    input.value = "";
+
+    // Actualizamos la visualización de la lista de amigos
+    actualizarLista();
+}
+
+// Función para actualizar la lista de amigos en la interfaz
+function actualizarLista() {
+    const listaAmigos = document.getElementById('listaAmigos');
+    
+    // Limpiar la lista existente
+    listaAmigos.innerHTML = ""; // Esto asegura que la lista se reinicie
+
+    // Iterar sobre el arreglo amigos y agregar elementos a la lista
+    amigos.forEach(amigo => {
+        const li = document.createElement('li');  // Crear un nuevo <li> por cada amigo
+        li.textContent = amigo;  // Asignar el nombre del amigo como contenido del <li>
+        listaAmigos.appendChild(li);  // Agregar el <li> al DOM
+    });
+}
+
+// Función para realizar el sorteo
+function sortearAmigo() {
+    if (amigos.length === 0) {
+        // Si no hay amigos en la lista, mostramos una alerta
+        alert("Primero agrega algunos nombres para poder realizar el sorteo.");
+        return;
+    }
+
+    // Seleccionamos un amigo de forma aleatoria
+    const indiceAleatorio = Math.floor(Math.random() * amigos.length);
+    const amigoSorteado = amigos[indiceAleatorio];
+
+    // Mostramos el resultado en la página
+    const resultado = document.getElementById('resultado');
+    resultado.innerHTML = `<li>¡El amigo secreto es: <strong>${amigoSorteado}</strong>!</li>`;
+}
+    </script>
+</body>
+</html>
